@@ -6,6 +6,7 @@ import ExpoModulesCore
 import VisionKit
 #endif
 
+
 typealias SDWebImageContext = [SDWebImageContextOption: Any]
 
 // swiftlint:disable:next type_body_length
@@ -53,6 +54,11 @@ public final class ImageView: ExpoView {
   var blurRadius: CGFloat = 0.0
 
   var imageTintColor: UIColor?
+
+  // OGO - stroke functionality
+  var imageStrokeColor: UIColor = .black
+  var imageStrokeWidth: CGFloat = 0.0
+  // OGO - stroke functionality
 
   var cachePolicy: ImageCachePolicy = .disk
 
@@ -157,9 +163,9 @@ public final class ImageView: ExpoView {
     // Cancel currently running load requests.
     cancelPendingOperation()
 
-    if blurRadius > 0 {
-      context[.imageTransformer] = createTransformPipeline()
-    }
+    //if blurRadius > 0 { // OGO
+    context[.imageTransformer] = createTransformPipeline()
+    //}
 
     // It seems that `UIImageView` can't tint some vector graphics. If the `tintColor` prop is specified,
     // we tell the SVG coder to decode to a bitmap instead. This will become useless when we switch to SVGNative coder.
@@ -364,10 +370,18 @@ public final class ImageView: ExpoView {
   // MARK: - Processing
 
   private func createTransformPipeline() -> SDImagePipelineTransformer? {
-    let transformers: [SDImageTransformer] = [
-      SDImageBlurTransformer(radius: blurRadius)
-    ]
-    return SDImagePipelineTransformer(transformers: transformers)
+    var transformers: [SDImageTransformer] = []
+    if (imageStrokeWidth > 0) {
+      let strokeFilter = OGOStrokeFilter()
+      strokeFilter.inputColor = CIColor(color:imageStrokeColor)
+      strokeFilter.inputThickness = NSNumber(value: Double(imageStrokeWidth))
+      transformers.append(SDImageFilterTransformer(filter: strokeFilter))
+    }
+    if (blurRadius > 0) {
+      transformers.append(SDImageBlurTransformer(radius: blurRadius))
+    }
+
+    return transformers.isEmpty ? nil : SDImagePipelineTransformer(transformers: transformers)
   }
 
   private func processImage(_ image: UIImage?, idealSize: CGSize, scale: Double) -> UIImage? {

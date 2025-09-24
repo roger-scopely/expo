@@ -81,7 +81,7 @@ export type ImageDecodeFormat = 'argb' | 'rgb';
  */
 export interface ImageProps extends Omit<ViewProps, 'style' | 'children'> {
     /** @hidden */
-    style?: StyleProp<RNImageStyle>;
+    style?: StyleProp<RNImageStyle & Pick<ViewStyle, 'outlineColor' | 'outlineWidth'>>;
     /**
      * The image source, either a remote URL, a local file resource or a number that is the result of the `require()` function.
      * When provided as an array of sources, the source that fits best into the container size and is closest to the screen scale
@@ -328,7 +328,7 @@ export interface ImageProps extends Omit<ViewProps, 'style' | 'children'> {
  * @hidden
  */
 export interface ImageNativeProps extends ImageProps {
-    style?: RNImageStyle;
+    style?: RNImageStyle & Pick<ViewStyle, 'outlineColor' | 'outlineWidth'>;
     source?: ImageSource[] | SharedRefType<'image'>;
     placeholder?: ImageSource[] | SharedRefType<'image'>;
     contentPosition?: ImageContentPositionObject;

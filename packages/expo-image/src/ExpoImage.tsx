@@ -96,6 +96,10 @@ class ExpoImage extends React.PureComponent<ImageNativeProps> {
     // @ts-ignore
     const borderBottomColor = processColor(resolvedStyle.borderBottomColor);
 
+    // OGO
+    const outlineColor = processColor(resolvedStyle.outlineColor);
+    const outlineWidth = resolvedStyle.outlineWidth;
+
     return (
       <NativeExpoImage
         {...props}
@@ -115,6 +119,8 @@ class ExpoImage extends React.PureComponent<ImageNativeProps> {
         borderStartColor={borderStartColor}
         borderEndColor={borderEndColor}
         backgroundColor={backgroundColor}
+        strokeColor={outlineColor}
+        strokeWidth={typeof outlineWidth === 'number' ? outlineWidth : undefined}
         ref={props.nativeViewRef}
       />
     );
