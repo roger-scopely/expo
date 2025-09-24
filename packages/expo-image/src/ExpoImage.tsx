@@ -96,9 +96,14 @@ class ExpoImage extends React.PureComponent<ImageNativeProps> {
     // @ts-ignore
     const borderBottomColor = processColor(resolvedStyle.borderBottomColor);
 
-    // OGO
-    const outlineColor = processColor(resolvedStyle.outlineColor);
-    const outlineWidth = resolvedStyle.outlineWidth;
+    // OGO - stroke functionality
+    const strokeColor = processColor(props.strokeColor);
+    const strokeWidth = typeof props.strokeWidth === 'number' ? props.strokeWidth : undefined;
+    const strokeWidthPercent =
+      typeof props.strokeWidth === 'string' && props.strokeWidth.endsWith('%')
+        ? parseFloat(props.strokeWidth) / 100
+        : undefined;
+    // OGO - stroke functionality
 
     return (
       <NativeExpoImage
@@ -119,8 +124,11 @@ class ExpoImage extends React.PureComponent<ImageNativeProps> {
         borderStartColor={borderStartColor}
         borderEndColor={borderEndColor}
         backgroundColor={backgroundColor}
-        strokeColor={outlineColor}
-        strokeWidth={typeof outlineWidth === 'number' ? outlineWidth : undefined}
+        // OGO - stroke functionality
+        strokeColor={strokeColor}
+        strokeWidth={strokeWidth}
+        strokeWidthPercent={strokeWidthPercent}
+        // OGO - stroke functionality
         ref={props.nativeViewRef}
       />
     );

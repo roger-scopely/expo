@@ -58,6 +58,7 @@ public final class ImageView: ExpoView {
   // OGO - stroke functionality
   var imageStrokeColor: UIColor = .black
   var imageStrokeWidth: CGFloat = 0.0
+  var imageStrokeWidthPercent: CGFloat = 0.0
   // OGO - stroke functionality
 
   var cachePolicy: ImageCachePolicy = .disk
@@ -371,10 +372,11 @@ public final class ImageView: ExpoView {
 
   private func createTransformPipeline() -> SDImagePipelineTransformer? {
     var transformers: [SDImageTransformer] = []
-    if (imageStrokeWidth > 0) {
+    if (imageStrokeWidth > 0 || imageStrokeWidthPercent > 0) {
       let strokeFilter = OGOStrokeFilter()
       strokeFilter.inputColor = CIColor(color:imageStrokeColor)
-      strokeFilter.inputThickness = NSNumber(value: Double(imageStrokeWidth))
+      strokeFilter.inputThickness = imageStrokeWidth
+      strokeFilter.inputThicknessPercent = imageStrokeWidthPercent
       transformers.append(SDImageFilterTransformer(filter: strokeFilter))
     }
     if (blurRadius > 0) {

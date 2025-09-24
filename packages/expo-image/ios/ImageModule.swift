@@ -68,13 +68,16 @@ public final class ImageModule: Module {
       Prop("tintColor") { (view, tintColor: UIColor?) in
         view.imageTintColor = tintColor
       }
-      
+
       // OGO - stroke functionality
       Prop("strokeColor") { (view, strokeColor: UIColor?) in
         view.imageStrokeColor = strokeColor ?? .black
       }
       Prop("strokeWidth") { (view, strokeWidth: Double?) in
         view.imageStrokeWidth = strokeWidth ?? .zero
+      }
+      Prop("strokeWidthPercent") { (view, strokeWidthPercent: Double?) in
+        view.imageStrokeWidthPercent = strokeWidthPercent ?? .zero
       }
       // OGO - stroke functionality
 

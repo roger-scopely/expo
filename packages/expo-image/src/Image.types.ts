@@ -90,7 +90,7 @@ export type ImageDecodeFormat = 'argb' | 'rgb';
  */
 export interface ImageProps extends Omit<ViewProps, 'style' | 'children'> {
   /** @hidden */
-  style?: StyleProp<RNImageStyle & Pick<ViewStyle, 'outlineColor' | 'outlineWidth'>>;
+  style?: StyleProp<RNImageStyle>;
 
   /**
    * The image source, either a remote URL, a local file resource or a number that is the result of the `require()` function.
@@ -169,6 +169,11 @@ export interface ImageProps extends Omit<ViewProps, 'style' | 'children'> {
    * @default null
    */
   tintColor?: string | null;
+
+  // OGO - stroke functionality
+  strokeColor?: number | string;
+  strokeWidth?: number | `${number}%`;
+  // OGO - stroke functionality
 
   /**
    * Priorities for completing loads. If more than one load is queued at a time,
@@ -379,7 +384,7 @@ export interface ImageProps extends Omit<ViewProps, 'style' | 'children'> {
  * @hidden
  */
 export interface ImageNativeProps extends ImageProps {
-  style?: RNImageStyle & Pick<ViewStyle, 'outlineColor' | 'outlineWidth'>;
+  style?: RNImageStyle;
   source?: ImageSource[] | SharedRefType<'image'>;
   placeholder?: ImageSource[] | SharedRefType<'image'>;
   contentPosition?: ImageContentPositionObject;
