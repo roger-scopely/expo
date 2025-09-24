@@ -15,15 +15,15 @@ import jp.co.cyberagent.android.gpuimage.GPUImage;
 import jp.co.cyberagent.android.gpuimage.filter.*;
 import jp.wasabeef.glide.transformations.BitmapTransformation;
 
-public class OGOStrokeTransformation extends BitmapTransformation {
+public class OGOStrokeFilterTransformation extends BitmapTransformation {
     private static final int VERSION = 1;
-    private static final String ID = "OGOStrokeTransformation." + VERSION;
+    private static final String ID = "OGOStrokeFilterTransformation." + VERSION;
     private static final byte[] ID_BYTES = ID.getBytes(CHARSET);
 
     private final int color;
     private final int size;
 
-    public OGOStrokeTransformation(int color, int size) {
+    public OGOStrokeFilterTransformation(int color, int size) {
         this.color = color;
         this.size = size;
     }
@@ -41,6 +41,7 @@ public class OGOStrokeTransformation extends BitmapTransformation {
                 0, 0, 0, 1,
         }));
         // This dilate filter only samples red channel, outputting 1 or 0
+        // Only integer kernel sizes 1-4 are supported
         group.addFilter(new GPUImageDilationFilter(size));
         // Now map red channel back to desired stroke colour
         group.addFilter(new GPUImageColorMatrixFilter(1, new float[] {
@@ -75,10 +76,10 @@ public class OGOStrokeTransformation extends BitmapTransformation {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof OGOStrokeTransformation)) {
+        if (!(o instanceof OGOStrokeFilterTransformation)) {
             return false;
         }
-        OGOStrokeTransformation other = (OGOStrokeTransformation) o;
+        OGOStrokeFilterTransformation other = (OGOStrokeFilterTransformation) o;
         return color == other.color && size == other.size;
     }
 

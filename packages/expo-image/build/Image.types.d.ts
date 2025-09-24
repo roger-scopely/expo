@@ -145,7 +145,13 @@ export interface ImageProps extends Omit<ViewProps, 'style' | 'children'> {
      * @default null
      */
     tintColor?: string | null;
+    /** The color of a stroke (outline) that will be drawn around the opaque parts of an image. */
     strokeColor?: number | string;
+    /**
+     * The width of a stroke (outline) that will be drawn around the opaque parts of an image.
+     * On iOS, this is either a number of pixels at the image's size, or a percent of the image's max dimension.
+     * On Android, this is a number 0-4 corresponding to preset amounts of expansion.
+     */
     strokeWidth?: number | `${number}%`;
     /**
      * Priorities for completing loads. If more than one load is queued at a time,

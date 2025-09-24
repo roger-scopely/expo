@@ -38,8 +38,7 @@ import expo.modules.kotlin.tracing.beginAsyncTraceBlock
 import expo.modules.kotlin.tracing.trace
 import expo.modules.kotlin.viewevent.EventDispatcher
 import expo.modules.kotlin.views.ExpoView
-import jp.wasabeef.glide.transformations.*
-import jp.wasabeef.glide.transformations.gpu.*
+import jp.wasabeef.glide.transformations.BlurTransformation
 import java.lang.ref.WeakReference
 import kotlin.math.abs
 import kotlin.math.min
@@ -436,7 +435,7 @@ class ExpoImageViewWrapper(context: Context, appContext: AppContext) : ExpoView(
         transform(BlurTransformation(min(it, 25), 4))
       }
       .customize(strokeWidth) {
-        transform(OGOStrokeTransformation(strokeColor, it))
+        transform(OGOStrokeFilterTransformation(strokeColor, it))
       }
   }
 
