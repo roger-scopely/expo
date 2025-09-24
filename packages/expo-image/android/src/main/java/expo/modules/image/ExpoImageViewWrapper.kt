@@ -418,7 +418,7 @@ class ExpoImageViewWrapper(context: Context, appContext: AppContext) : ExpoView(
       .customize(blurRadius) {
         transform(BlurTransformation(min(it, 25), 4))
       }
-      .transform(OGOStrokeTransformation()) // TODO temporary
+      .transform(OGOStrokeTransformation(Color.BLACK, 3))
   }
 
   fun onViewDestroys() {
