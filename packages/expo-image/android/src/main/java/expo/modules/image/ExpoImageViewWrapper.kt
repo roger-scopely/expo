@@ -3,6 +3,7 @@ package expo.modules.image
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.Animatable
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -37,7 +38,8 @@ import expo.modules.kotlin.tracing.beginAsyncTraceBlock
 import expo.modules.kotlin.tracing.trace
 import expo.modules.kotlin.viewevent.EventDispatcher
 import expo.modules.kotlin.views.ExpoView
-import jp.wasabeef.glide.transformations.BlurTransformation
+import jp.wasabeef.glide.transformations.*
+import jp.wasabeef.glide.transformations.gpu.*
 import java.lang.ref.WeakReference
 import kotlin.math.abs
 import kotlin.math.min
@@ -416,6 +418,7 @@ class ExpoImageViewWrapper(context: Context, appContext: AppContext) : ExpoView(
       .customize(blurRadius) {
         transform(BlurTransformation(min(it, 25), 4))
       }
+      .transform(OGOStrokeTransformation()) // TODO temporary
   }
 
   fun onViewDestroys() {

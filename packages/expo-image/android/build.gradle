@@ -42,4 +42,6 @@ dependencies {
 
   implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1'
   implementation "jp.wasabeef:glide-transformations:4.3.0"
+  // OGO this is already used by above as compileOnly, we want the implementation
+  implementation "jp.co.cyberagent.android:gpuimage:2.1.0"
 }
