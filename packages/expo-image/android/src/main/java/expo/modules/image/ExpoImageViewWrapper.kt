@@ -127,6 +127,23 @@ class ExpoImageViewWrapper(context: Context, appContext: AppContext) : ExpoView(
       }
     }
 
+  // OGO - stroke functionality
+  internal var strokeColor: Int = 0
+    set(value) {
+      if (field != value) {
+        shouldRerender = true
+      }
+      field = value
+    }
+  internal var strokeWidth: Int? = null
+    set(value) {
+      if (field != value) {
+        shouldRerender = true
+      }
+      field = value
+    }
+  // OGO - stroke functionality
+
   internal var isFocusableProp: Boolean = false
     set(value) {
       field = value
@@ -418,7 +435,9 @@ class ExpoImageViewWrapper(context: Context, appContext: AppContext) : ExpoView(
       .customize(blurRadius) {
         transform(BlurTransformation(min(it, 25), 4))
       }
-      .transform(OGOStrokeTransformation(Color.BLACK, 3))
+      .customize(strokeWidth) {
+        transform(OGOStrokeTransformation(strokeColor, it))
+      }
   }
 
   fun onViewDestroys() {

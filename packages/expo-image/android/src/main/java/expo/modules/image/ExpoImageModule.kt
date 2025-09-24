@@ -227,6 +227,18 @@ class ExpoImageModule : Module() {
         view.tintColor = color
       }
 
+      // OGO - stroke functionality
+      Prop("strokeColor") { view: ExpoImageViewWrapper, color: Int? ->
+        view.strokeColor = color ?: 0
+      }
+      Prop("strokeWidth") { view: ExpoImageViewWrapper, width: Int? ->
+        view.strokeWidth = width?.takeIf { it > 0 }
+      }
+      Prop("strokeWidthPercent") { view: ExpoImageViewWrapper, percent: Double? ->
+        view.strokeWidth = if (percent != null && percent > 0) 1 else null
+      }
+      // OGO - stroke functionality
+
       Prop("placeholder") { view: ExpoImageViewWrapper, placeholder: List<SourceMap>? ->
         view.placeholders = placeholder ?: emptyList()
       }
